@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="scripts/script.js"></script>
+    <title>Listening Statistics</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <h2>View your listening history below!</h2>
+    <div id="stats-content">
+        <div id="chart-div">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div>
+            <ul id="genreList">
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    getTopArtists(1);
+    getTopArtists(2);
+
+</script>
+
+</html>

@@ -1,0 +1,12 @@
+/* stats page styling */
+#stats-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#chart-div {
+    width: 900px;
+    height: 450px;
+    padding-left: 35%;
+}
