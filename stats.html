@@ -11,6 +11,13 @@
 
 <body>
     <h2>View your listening history below!</h2>
+    <p>Use the buttons below to show your music listening trends over the last month, 6 months, and all time</p>
+    <div>
+        <button type="button" onclick="shortTermChart()">1 Month</button>
+        <button type="button" onclick="medTermChart()">6 Months</button>
+        <button type="button" onclick="longTermChart()">All Time</button>
+    </div>
+    <p id="current-display">Currently showing: nothing</p>
     <div id="stats-content">
         <div id="chart-div">
             <canvas id="myChart"></canvas>
@@ -23,9 +30,27 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    getTopArtists(1);
-    getTopArtists(2);
 
+    const shortTermChart = () => {
+        getTopArtists(1, "short_term");
+        getTopArtists(2, "short_term");
+        var textContent = document.getElementById('current-display');
+        textContent.innerText = "Currently showing: 1 Month listening stats";
+    }
+
+    const medTermChart = () => {
+        getTopArtists(1, "medium_term");
+        getTopArtists(2, "medium_term");
+        var textContent = document.getElementById('current-display');
+        textContent.innerText = "Currently showing: 6 Month listening stats";
+    }
+
+    const longTermChart = () => {
+        getTopArtists(1, "long_term");
+        getTopArtists(2, "long_term");
+        var textContent = document.getElementById('current-display');
+        textContent.innerText = "Currently showing: All time listening stats";
+    }
 </script>
 
 </html>

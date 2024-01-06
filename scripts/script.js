@@ -55,10 +55,10 @@ const usersTopGenre = async () => {
     return mostFrequentGenres;
 }
 
-const getTopArtists = async (mode) => {
+const getTopArtists = async (mode, term) => {
     const accessToken = getAccessToken();
     if (accessToken) {
-        await fetch('https://api.spotify.com/v1/me/top/artists?limit=30', {
+        await fetch(`https://api.spotify.com/v1/me/top/artists?time_range=${term}&limit=30`, {
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
             },
@@ -153,3 +153,18 @@ const displayChart = async () => {
         console.log("Error displaying chart data", error);
     }
 };
+
+/*const webPlayerFunctions = () => {
+    const playlistId = '4lxAKbDCL8bMLuYpr5j0Jb';
+
+    <iframe
+        title="Spotify Embed: Recommendation Playlist "
+        src={`https://open.spotify.com/embed/playlist/4lxAKbDCL8bMLuYpr5j0Jb?utm_source=generator&theme=0`}
+        width="100%"
+        height="100%"
+        style={{ minHeight: '360px' }}
+        frameBorder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+    />
+}*/
