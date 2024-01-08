@@ -10,6 +10,19 @@
 </head>
 
 <body>
+    <navbar id="navbar">
+        <ul>
+            <a href="http://127.0.0.1:5500/index.html">
+                <li>Home</li>
+            </a>
+            <a href="http://127.0.0.1:5500/stats.html">
+                <li>Stats</li>
+            </a>
+            <a href="http://127.0.0.1:5500/webplayer.html">
+                <li>More</li>
+            </a>
+        </ul>
+    </navbar>
     <h2>View your listening history below!</h2>
     <p>Use the buttons below to show your music listening trends over the last month, 6 months, and all time</p>
     <div>
@@ -22,7 +35,7 @@
         <div id="chart-div">
             <canvas id="myChart"></canvas>
         </div>
-        <div>
+        <div id="top-artist-list">
             <h2 id="list-header"></h2>
             <ul id="genreList">
             </ul>

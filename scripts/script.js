@@ -1,5 +1,7 @@
 const topArtists = [];
 const totalGenres = [];
+const topArtistsID = [];
+var access_token = "";
 
 const getSpotify = () => {
     const clientId = 'd419a183bf4c4b0a9460e58ae401303b';
@@ -22,6 +24,7 @@ const getAccessToken = () => {
         }
     }
     console.log(accessToken);   // testing purposes
+    access_token = accessToken;
     return accessToken;
 }
 
@@ -77,6 +80,7 @@ const getTopArtists = async (mode, term) => {
                     case 2:
                         for (let i = 0; i < data.items.length; i++) {
                             topArtists.push(data.items[i].name);
+                            topArtistsID.push(data.items[i].id);
                         }
                         console.log(topArtists);
                         displayArtistsInList(); // Call displayArtistsInList to update the HTML
@@ -134,3 +138,23 @@ const displayChart = async () => {
         console.log("Error displaying chart data", error);
     }
 };
+
+// third page scripting
+
+const getRelatedArtists = async () => {
+    console.log('func running');
+    for (let i = 0; i < topArtistsID.length; i++) {
+        var id = topArtistsID[i];
+        await fetch(`https://api.spotify.com/v1/artists/${id}/related-artists`, {
+            headers: {
+                'Authorization': 'Bearer ' + access_token,
+            },
+        }).then(response => response.json())
+            .then(data => {
+                for (let i = 0; i < data.items.length; i++) {
+                    console.log(data.items[i].name);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+}

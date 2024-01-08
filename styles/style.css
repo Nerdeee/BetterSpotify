@@ -1,5 +1,32 @@
 /* global styling */
 
+#navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: left;
+    padding-left: 0px;
+    border-style: double;
+    margin-top: 10px;
+    background-color: chartreuse;
+    color: cadetblue;
+}
+
+#navbar ul li {
+    padding-left: 30px;
+    text-align: center;
+}
+
+#navbar ul li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    flex-direction: column;
+}
+
+#navbar ul li a:hover {
+    background-color: yellow;
+}
+
 /* stats page styling */
 #stats-content {
     display: flex;
@@ -10,7 +37,11 @@
 #chart-div {
     width: 900px;
     height: 450px;
-    padding-left: 35%;
+    padding-left: 50px;
+}
+
+#top-artsists-list {
+    margin-left: 500px;
 }
 
 #genreList {

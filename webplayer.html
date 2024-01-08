@@ -6,13 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Player</title>
     <link rel="stylesheet" href="styles/style.css">
+    <script src="scripts/script.js"></script>
 </head>
 
 <body>
-    <h2>Use the web player below to enhance your Spotify song shuffling experience!</h2>
-    <button>Previous</button>
-    <button>Pause/Unpause</button>
-    <button>Next</button>
+    <navbar id="navbar">
+        <ul>
+            <a href="http://127.0.0.1:5500/index.html">
+                <li>Home</li>
+            </a>
+            <a href="http://127.0.0.1:5500/stats.html">
+                <li>Stats</li>
+            </a>
+            <a href="http://127.0.0.1:5500/webplayer.html">
+                <li>More</li>
+            </a>
+        </ul>
+    </navbar>
+    <h1>Artist Tree</h1>
+    <button onclick="getRelatedArtists()">Show artist tree</button>
 </body>
+<script>
+</script>
 
 </html>
