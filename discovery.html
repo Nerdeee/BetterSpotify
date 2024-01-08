@@ -18,15 +18,21 @@
             <a href="http://127.0.0.1:5500/stats.html">
                 <li>Stats</li>
             </a>
-            <a href="http://127.0.0.1:5500/webplayer.html">
+            <a href="http://127.0.0.1:5500/discovery.html">
                 <li>More</li>
             </a>
         </ul>
     </navbar>
     <h1>Artist Tree</h1>
     <button onclick="getRelatedArtists()">Show artist tree</button>
+    <button onclick="bsFunc()">test</button>
 </body>
 <script>
+    const bsFunc = () => {
+        for (let i = 0; i < topArtists.length; i++) {
+            console.log(topArtists[i]);
+        }
+    }
 </script>
 
 </html>
