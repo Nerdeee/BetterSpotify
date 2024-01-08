@@ -23,6 +23,7 @@
             <canvas id="myChart"></canvas>
         </div>
         <div>
+            <h2 id="list-header"></h2>
             <ul id="genreList">
             </ul>
         </div>
@@ -31,25 +32,59 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
-    const shortTermChart = () => {
-        getTopArtists(1, "short_term");
-        getTopArtists(2, "short_term");
-        var textContent = document.getElementById('current-display');
-        textContent.innerText = "Currently showing: 1 Month listening stats";
+    myChart = null;
+
+    const shortTermChart = async () => {
+        changeChartAndListDisplay();
+        await getTopArtists(1, "short_term");
+        await getTopArtists(2, "short_term");
+        hiddenUntilClick();
+        changeMessage('Listening stats in the last 30 days');
+        displayChart();
     }
 
-    const medTermChart = () => {
-        getTopArtists(1, "medium_term");
-        getTopArtists(2, "medium_term");
-        var textContent = document.getElementById('current-display');
-        textContent.innerText = "Currently showing: 6 Month listening stats";
+    const medTermChart = async () => {
+        changeChartAndListDisplay();
+        await getTopArtists(1, "medium_term");
+        await getTopArtists(2, "medium_term");
+        hiddenUntilClick();
+        changeMessage("Listening stats in the last 6 months");
+        displayChart();
     }
 
-    const longTermChart = () => {
-        getTopArtists(1, "long_term");
-        getTopArtists(2, "long_term");
+    const longTermChart = async () => {
+        changeChartAndListDisplay();
+        await getTopArtists(1, "long_term");
+        await getTopArtists(2, "long_term");
+        hiddenUntilClick();
+        changeMessage("All time listening stats");
+        displayChart();
+    }
+
+    const changeChartAndListDisplay = () => {
+        if (myChart !== null) {
+            myChart.destroy();
+            //myChart = null;
+        }
+
+        topArtists.length = 0;
+        totalGenres.length = 0;
+
+
+        const genre_list = document.getElementById('genreList');
+        genre_list.innerHTML = '';
+    }
+
+    const changeMessage = (message) => {
         var textContent = document.getElementById('current-display');
-        textContent.innerText = "Currently showing: All time listening stats";
+        textContent.innerText = `Currently showing: ${message}`;
+    }
+
+    const hiddenUntilClick = () => {
+        const list_header = document.getElementById('list-header');
+        if (list_header.innerText == "") {
+            list_header.innerText = "Top Artists"
+        }
     }
 </script>
 

@@ -72,7 +72,7 @@ const getTopArtists = async (mode, term) => {
                             totalGenres.push(artistGenres);
                         }
                         usersTopGenre();
-                        displayChart();
+                        //displayChart();
                         break;
                     case 2:
                         for (let i = 0; i < data.items.length; i++) {
@@ -98,30 +98,11 @@ const displayArtistsInList = () => {
     })
 }
 
-/*const displayChart = () => {
-    const genreFrequency = calculateGenreFrequency(totalGenres); // Calculate genre frequency from totalGenres array
-
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            datasets: [{
-                data: Object.values(genreFrequency), // Use the genre frequency values as data
-                backgroundColor: ['red', 'orange', 'yellow', 'green', 'blue', 'black', 'brown', 'indigo', 'violet', 'cyan']
-            }],
-            labels: Object.keys(genreFrequency) // Use the genre names as labels
-        },
-        options: {
-            responsive: true,
-            legend: {
-                position: 'bottom'
-            }
-        }
-    });
-};*/
-
-
 const displayChart = async () => {
+    if (myChart !== null) {
+        myChart.destroy();
+    }
+
     try {
         console.log("Displaying chart");
         const genre_frequency = await usersTopGenre(); // Calculate genre frequency from totalGenres array
@@ -153,18 +134,3 @@ const displayChart = async () => {
         console.log("Error displaying chart data", error);
     }
 };
-
-/*const webPlayerFunctions = () => {
-    const playlistId = '4lxAKbDCL8bMLuYpr5j0Jb';
-
-    <iframe
-        title="Spotify Embed: Recommendation Playlist "
-        src={`https://open.spotify.com/embed/playlist/4lxAKbDCL8bMLuYpr5j0Jb?utm_source=generator&theme=0`}
-        width="100%"
-        height="100%"
-        style={{ minHeight: '360px' }}
-        frameBorder="0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-    />
-}*/
