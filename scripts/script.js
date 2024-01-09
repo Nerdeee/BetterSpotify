@@ -144,21 +144,42 @@ const displayChart = async () => {
 // Discovery page scripting
 
 const visitedArtists = [];
+const retrievedArtists = [];
+var currentArtist;
+var currentArtistID;
 
-const getRelatedArtists = async () => {
+const getRelatedArtists = async (mode, clickedArtist) => {  //mode 1 for initialization, mode 2 for future calls. Pass empty string for clickedArtist for mode 1 
+    var tempArtists;
+    var tempArtistsID;
     const access_token = JSON.parse(localStorage.getItem('access_token'));
-    const artists = JSON.parse(localStorage.getItem('topArtists'));
-    const artists_IDs = JSON.parse(localStorage.getItem('topArtistsID'));
+    switch (mode) {
+        case 1:
+            const artists = JSON.parse(localStorage.getItem('topArtists'));
+            const artists_IDs = JSON.parse(localStorage.getItem('topArtistsID'));
 
-    //testing purposes
-    console.log(access_token);
-    console.log(artists);
-    console.log(artists_IDs);
-    //
+            tempArtists = artists;
+            tempArtistsID = artists_IDs;
+            //testing purposes
+            console.log(access_token);
+            console.log(artists);
+            console.log(artists_IDs);
+            console.log('temp vars below');
+            console.log(artists);
+            console.log(artists_IDs);
+            //
 
+            break;
+
+        case 2:
+            //currentArtist = clickedArtist;
+            tempArtists.push(currentArtist);
+            tempArtistsID.push(currentArtistID);
+            break;
+    }
     try {
         // Create an array of promises for each artist ID
-        const promises = artists_IDs.map(async (id) => {
+        //const promises = artists_IDs.map(async (id) => {
+        const promises = tempArtistsID.map(async (id) => {
             const response = await fetch(`https://api.spotify.com/v1/artists/${id}/related-artists`, {
                 headers: {
                     'Authorization': 'Bearer ' + access_token,
@@ -172,9 +193,8 @@ const getRelatedArtists = async () => {
 
             for (let i = 0; i < data.artists.length; i++) {
                 console.log(data.artists[i].name);
-                artists.push(data.artists[i].name);
+                retrievedArtists.push(data.artists[i].name);
                 visitedArtists.push(data.artists[i].name);
-
             }
         });
 
