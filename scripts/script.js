@@ -1,6 +1,7 @@
 const topArtists = [];
 const totalGenres = [];
 const topArtistsID = [];
+const relatedArtists = [];
 
 const getSpotify = () => {
     const clientId = 'd419a183bf4c4b0a9460e58ae401303b';
@@ -140,24 +141,24 @@ const displayChart = async () => {
     }
 };
 
-// third page scripting
+// Discovery page scripting
 
 const visitedArtists = [];
 
 const getRelatedArtists = async () => {
     const access_token = JSON.parse(localStorage.getItem('access_token'));
-    const top_artists = JSON.parse(localStorage.getItem('topArtists'));
-    const top_artists_IDs = JSON.parse(localStorage.getItem('topArtistsID'));
+    const artists = JSON.parse(localStorage.getItem('topArtists'));
+    const artists_IDs = JSON.parse(localStorage.getItem('topArtistsID'));
 
     //testing purposes
     console.log(access_token);
-    console.log(top_artists);
-    console.log(top_artists_IDs);
+    console.log(artists);
+    console.log(artists_IDs);
     //
 
     try {
         // Create an array of promises for each artist ID
-        const promises = top_artists_IDs.map(async (id) => {
+        const promises = artists_IDs.map(async (id) => {
             const response = await fetch(`https://api.spotify.com/v1/artists/${id}/related-artists`, {
                 headers: {
                     'Authorization': 'Bearer ' + access_token,
@@ -166,13 +167,15 @@ const getRelatedArtists = async () => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+
             const data = await response.json();
-            //console.log('inner func');
+
             for (let i = 0; i < data.artists.length; i++) {
                 console.log(data.artists[i].name);
+                artists.push(data.artists[i].name);
+                visitedArtists.push(data.artists[i].name);
+
             }
-            //console.log('json response from fetching related artists below:');
-            //console.log(data);
         });
 
         // Wait for all promises to resolve
