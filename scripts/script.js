@@ -1,6 +1,7 @@
 const topArtists = [];
 const totalGenres = [];
 const topArtistsID = [];
+const artistPopularity = [];
 const relatedArtists = [];
 
 const getSpotify = () => {
@@ -75,17 +76,18 @@ const getTopArtists = async (mode, term) => {
                             totalGenres.push(artistGenres);
                         }
                         usersTopGenre();
-                        //displayChart();
                         break;
                     case 2: // case for getting artists name and their associated ID
                         for (let i = 0; i < data.items.length; i++) {
                             topArtists.push(data.items[i].name);
                             topArtistsID.push(data.items[i].id);
+                            artistPopularity.push(data.items[i].popularity)
                         }
                         console.log(topArtists);
                         localStorage.setItem('topArtists', JSON.stringify(topArtists));                 // local storage for top artists
                         localStorage.setItem('topArtistsID', JSON.stringify(topArtistsID));             // local storage for top artist's IDs
-                        displayArtistsInList(); // Call displayArtistsInList to update the HTML
+                        localStorage.setItem('artistPopularity', JSON.stringify(artistPopularity));     // local storage for top artists's popularity
+                        displayArtistsInList(topArtists, 'genreList'); // Call displayArtistsInList to update the HTML
                         break;
                 }
             })
@@ -94,7 +96,7 @@ const getTopArtists = async (mode, term) => {
 }
 
 // This function is used at stats.html. This function adds the array elements (top 30 artists) into a list to display to the user
-const displayArtistsInList = () => {
+/*const displayArtistsInList = () => {
     const genre_list = document.getElementById('genreList');
 
     topArtists.forEach(artist => {
@@ -102,8 +104,19 @@ const displayArtistsInList = () => {
         listItem.innerText = artist;
         genre_list.appendChild(listItem);
     })
+}*/
+
+const displayArtistsInList = (arrayName, elementName) => {
+    const genre_list = document.getElementById(elementName);
+
+    arrayName.forEach(element => {
+        const listItem = document.createElement('li');
+        listItem.innerText = element;
+        genre_list.appendChild(listItem);
+    })
 }
 
+// displays chart on stats.html
 const displayChart = async () => {
     if (myChart !== null) {
         myChart.destroy();
@@ -141,24 +154,66 @@ const displayChart = async () => {
     }
 };
 
-// Discovery page scripting
+// Popularity page scripting
 
-const visitedArtists = [];
+const getPopularity = () => {
+    const access_token = JSON.parse(localStorage.getItem('access_token'));
+    const artists = JSON.parse(localStorage.getItem('topArtists'));
+    const artists_IDs = JSON.parse(localStorage.getItem('topArtistsID'));
+    const artist_popularity = JSON.parse(localStorage.getItem('artistPopularity'));
+    var popularitySum = 0;
+
+    console.log(artists);
+    console.log(artist_popularity);
+
+    for (let i = 0; i < artist_popularity.length; i++) {
+        popularitySum += artist_popularity[i];
+    }
+    popularitySum = popularitySum / 30;
+
+    console.log(popularitySum);
+
+    var displayUsersArtistPopularity;
+    if (popularitySum >= 80) {
+        displayArtistsInList = document.getElementById()
+        "Your music taste is basic as hell"
+    } else if (popularitySum >= 60 && popularitySum < 80) {
+        displayArtistsInList = document.getElementById()
+        "Your music taste is somewhat mainstream"
+    } else if (popularitySum >= 40 && popularitySum < 60) {
+        displayArtistsInList = document.getElementById()
+        "Your music taste is niche"
+    } else if (popularitySum >= 20 && popularitySum < 40) {
+        displayArtistsInList = document.getElementById()
+        "You live in the underground"
+    } else {
+        "You live in the VERY DEPTHS of the underground"
+    }
+
+    //displayArtistsInList(topArtists,);
+    //displayArtistsInList(artist_popularity,);
+
+}
+
+/*const visitedArtists = [];
 const retrievedArtists = [];
-var currentArtist;
-var currentArtistID;
+var currentArtist = [];
+var currentArtistID = [];
 
-const getRelatedArtists = async (mode, clickedArtist) => {  //mode 1 for initialization, mode 2 for future calls. Pass empty string for clickedArtist for mode 1 
+const getRelatedArtists = async (mode, clickedArtist) => {  //mode 1 for initialization, mode 2 for future calls. Pass empty string for clickedArtist for mode 1
     var tempArtists;
     var tempArtistsID;
     const access_token = JSON.parse(localStorage.getItem('access_token'));
+    const artists = JSON.parse(localStorage.getItem('topArtists'));
+    const artists_IDs = JSON.parse(localStorage.getItem('topArtistsID'));
     switch (mode) {
         case 1:
-            const artists = JSON.parse(localStorage.getItem('topArtists'));
-            const artists_IDs = JSON.parse(localStorage.getItem('topArtistsID'));
+            //const artists = JSON.parse(localStorage.getItem('topArtists'));
+            //const artists_IDs = JSON.parse(localStorage.getItem('topArtistsID'));
 
             tempArtists = artists;
             tempArtistsID = artists_IDs;
+
             //testing purposes
             console.log(access_token);
             console.log(artists);
@@ -179,7 +234,7 @@ const getRelatedArtists = async (mode, clickedArtist) => {  //mode 1 for initial
     try {
         // Create an array of promises for each artist ID
         //const promises = artists_IDs.map(async (id) => {
-        const promises = tempArtistsID.map(async (id) => {
+        const promises = currentArtistID.map(async (id) => {
             const response = await fetch(`https://api.spotify.com/v1/artists/${id}/related-artists`, {
                 headers: {
                     'Authorization': 'Bearer ' + access_token,
@@ -190,19 +245,42 @@ const getRelatedArtists = async (mode, clickedArtist) => {  //mode 1 for initial
             }
 
             const data = await response.json();
+            for (let i = 0; i < tempArtists.length; i++) {
+                var ulElement = document.createElement("ul");
+                document.getElementById("artist-tree").appendChild(ulElement);
+                for (let j = 0; j < data.artists.length; j++) {
+                    console.log(data.artists[j].name);
+                    var liElement = document.createElement("li");
+                    ulElement.appendChild(liElement);
+                    liElement.innerText = data.artistArr[j].name;*/
+/*console.log(data.artists[i].name);
+retrievedArtists.push(data.artists[i].name);
+visitedArtists.push(data.artists[i].name);*/
+//console.log("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");       // for testing purposes
+/*}
+console.log("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");       // for testing purposes
+}
+});
 
-            for (let i = 0; i < data.artists.length; i++) {
-                console.log(data.artists[i].name);
-                retrievedArtists.push(data.artists[i].name);
-                visitedArtists.push(data.artists[i].name);
-            }
-        });
 
-        // Wait for all promises to resolve
-        await Promise.all(promises);
+// Wait for all promises to resolve
+await Promise.all(promises);
 
-        console.log('All related artists fetched');
-    } catch (error) {
-        console.error('Error fetching related artists:', error);
-    }
-};
+console.log('All related artists fetched');
+} catch (error) {
+console.error('Error fetching related artists:', error);
+}
+};* /
+
+
+/*const displayArtistTree = (artistArr) => {
+for (let i = 0; i < artistArr.length; i++) {
+var ulElement = document.createElement("ul");
+document.getElementById("artist-tree").appendChild(ulElement);
+for (let j = 0; j < 20; j++) {
+var liElement = document.createElement("li");
+ulElement.appendChild(liElement);
+liElement.innerText = artistArr[j];
+}
+}
+}*/
