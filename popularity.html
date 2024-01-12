@@ -27,10 +27,22 @@
         </ul>
     </navbar>
     <h1>Artist popularity</h1>
-    <button onclick="getPopularity()">Find out how basic or niche your music taste is</button>
+    <button onclick="display()">Find out how basic or niche your music taste is</button>
+    <p id="display-rank"></p>
 </body>
 <script>
-
+    var count = 5;
+    const display = () => {
+        const getParID = document.getElementById('display-rank');
+        const intervalId = setInterval(() => {
+            getParID.innerText = count;
+            count -= 1;
+            if (count < 0) {
+                clearInterval(intervalId);
+                getPopularity();
+            }
+        }, 1000);
+    };
 </script>
 
 </html>

@@ -175,24 +175,21 @@ const getPopularity = () => {
 
     var displayUsersArtistPopularity;
     if (popularitySum >= 80) {
-        displayArtistsInList = document.getElementById()
-        "Your music taste is basic as hell"
+        displayUsersArtistPopularity = document.getElementById("display-rank")
+        displayUsersArtistPopularity.innerText = "Your music taste is basic as hell";
     } else if (popularitySum >= 60 && popularitySum < 80) {
-        displayArtistsInList = document.getElementById()
-        "Your music taste is somewhat mainstream"
+        displayUsersArtistPopularity = document.getElementById("display-rank")
+        displayUsersArtistPopularity.innerText = "Your music taste is somewhat mainstream";
     } else if (popularitySum >= 40 && popularitySum < 60) {
-        displayArtistsInList = document.getElementById()
-        "Your music taste is niche"
+        displayUsersArtistPopularity = document.getElementById("display-rank")
+        displayUsersArtistPopularity.innerText = "Your music taste is niche";
     } else if (popularitySum >= 20 && popularitySum < 40) {
-        displayArtistsInList = document.getElementById()
-        "You live in the underground"
+        displayUsersArtistPopularity = document.getElementById("display-rank")
+        displayUsersArtistPopularity.innerText = "You live in the underground";
     } else {
-        "You live in the VERY DEPTHS of the underground"
+        displayUsersArtistPopularity = document.getElementById("display-rank")
+        displayUsersArtistPopularity.innerText = "You live in THE DEPTHS of the underground";
     }
-
-    //displayArtistsInList(topArtists,);
-    //displayArtistsInList(artist_popularity,);
-
 }
 
 /*const visitedArtists = [];
