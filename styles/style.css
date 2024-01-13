@@ -55,4 +55,15 @@
 #display-rank {
     padding-top: 5%;
     padding-left: 43%;
+    font-size: 30px;
+}
+
+#popularity-info-box {
+    opacity: 0%;
+    transition: opacity 1s ease-in-out;
+    padding-left: 43%;
+}
+
+.fade-in {
+    opacity: 1;
 }

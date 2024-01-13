@@ -29,19 +29,28 @@
     <h1>Artist popularity</h1>
     <button onclick="display()">Find out how basic or niche your music taste is</button>
     <p id="display-rank"></p>
+    <p id="popularity-info-box"></p>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 <script>
     var count = 5;
     const display = () => {
+        var popSum = 0;
         const getParID = document.getElementById('display-rank');
         const intervalId = setInterval(() => {
             getParID.innerText = count;
             count -= 1;
             if (count < 0) {
                 clearInterval(intervalId);
-                getPopularity();
+                popSum = getPopularity();
+                console.log('space');
+                console.log(popSum);
             }
         }, 1000);
+        var popularityInfoBox = document.getElementById('popularity-info-box');                //
+        popularityInfoBox.innerText = `Your number on the popularity scale is: ${popSum} `;
+        fadeInParagraph();
+        console.log("display function");
     };
 </script>
 

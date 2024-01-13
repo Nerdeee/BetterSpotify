@@ -190,6 +190,18 @@ const getPopularity = () => {
         displayUsersArtistPopularity = document.getElementById("display-rank")
         displayUsersArtistPopularity.innerText = "You live in THE DEPTHS of the underground";
     }
+
+    return popularitySum;
+}
+
+const fadeInParagraph = () => {
+    const paragraph = document.getElementById('popularity-info-box');
+
+    setTimeout(() => {
+        paragraph.style.transition = "opacity 1s ease-in-out";
+        paragraph.style.opacity = 1;
+    }, 7000);
+    console.log("fade in paragraph");
 }
 
 /*const visitedArtists = [];
