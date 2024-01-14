@@ -194,13 +194,31 @@ const getPopularity = () => {
     return popularitySum;
 }
 
+const fadeInScore = () => {
+    const paragraph = document.getElementById('score');
+
+    setTimeout(() => {
+        paragraph.style.transition = "opacity 1s ease-in-out";
+        paragraph.style.opacity = 1;
+    }, 7000);
+    console.log("fade in score");
+}
+
 const fadeInParagraph = () => {
     const paragraph = document.getElementById('popularity-info-box');
 
     setTimeout(() => {
         paragraph.style.transition = "opacity 1s ease-in-out";
         paragraph.style.opacity = 1;
-    }, 7000);
+        paragraph.innerHTML = `This score is determined by looking at your top 30 artists and based off of the number of listeners they have on Spotify, a rank from 0 (being the least popular) and 100 (being the most popular) is assigned to each artist. We then take that number and divide it by 30 to get your score.\n If your score is between...\n
+        <ul>
+            <li>80 and 100, your taste is considered basic</li>
+            <li>60 and 79, your taste is considered mainstream</li>
+            <li>40 and 59, your taste is considered niche</li>
+            <li>20 and 39, your taste is considered underground</li>
+            <li>0 and 19, you live in the depths of the underground</li>
+        </ul> `
+    }, 8000);
     console.log("fade in paragraph");
 }
 

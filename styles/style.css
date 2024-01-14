@@ -53,15 +53,24 @@
 /* Popularity pag styling */
 
 #display-rank {
-    padding-top: 5%;
-    padding-left: 43%;
+    padding-top: 4%;
+    padding-left: 39%;
+    padding-right: 39%;
     font-size: 30px;
+}
+
+#score {
+    opacity: 0%;
+    transition: opacity 1s ease-in-out;
+    padding-left: 39%;
+    padding-right: 39%;
 }
 
 #popularity-info-box {
     opacity: 0%;
     transition: opacity 1s ease-in-out;
-    padding-left: 43%;
+    padding-left: 39%;
+    padding-right: 39%;
 }
 
 .fade-in {

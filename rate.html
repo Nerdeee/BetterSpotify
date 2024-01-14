@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Player</title>
+    <title>Rate your taste</title>
     <link rel="stylesheet" href="styles/style.css">
     <script src="scripts/script.js"></script>
 </head>
@@ -21,14 +21,17 @@
             <a href="http://127.0.0.1:5500/discovery.html">
                 <li>Discovery</li>
             </a>
-            <a href="http://127.0.0.1:5500/popularity.html">
-                <li>Popularity</li>
+            <a href="http://127.0.0.1:5500/rate.html">
+                <li>Rate your taste</li>
             </a>
         </ul>
     </navbar>
     <h1>Artist popularity</h1>
     <button onclick="display()">Find out how basic or niche your music taste is</button>
     <p id="display-rank"></p>
+    <br>
+    <p id="score"></p>
+    <br>
     <p id="popularity-info-box"></p>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
@@ -43,14 +46,12 @@
             if (count < 0) {
                 clearInterval(intervalId);
                 popSum = getPopularity();
-                console.log('space');
-                console.log(popSum);
+                var popularityInfoBox = document.getElementById('score');
+                popularityInfoBox.innerText = `Your number on the popularity scale is: ${popSum} `;
             }
         }, 1000);
-        var popularityInfoBox = document.getElementById('popularity-info-box');                //
-        popularityInfoBox.innerText = `Your number on the popularity scale is: ${popSum} `;
+        fadeInScore();
         fadeInParagraph();
-        console.log("display function");
     };
 </script>
 
