@@ -30,9 +30,14 @@
     <button onclick="getRelatedArtists(1, '')">Show artist tree</button>
     <!-- use this div for appending unordered lists and their related artists as the list items-->
     <div id="artist-tree">
+        <ul id="discovery-artist-list">
+        </ul>
     </div>
 </body>
 <script>
+    var artistArr = JSON.parse(localStorage.getItem('topArtists'));
+    var artistArrID = JSON.parse(localStorage.getItem('topArtistsID'));
+    showRelatedArtists(artistArr);
 </script>
 
 </html>

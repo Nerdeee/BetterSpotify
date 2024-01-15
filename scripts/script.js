@@ -311,3 +311,41 @@ liElement.innerText = artistArr[j];
 }
 }
 }*/
+
+/* Discovery page script */
+
+var relatedArtistName = [];
+var relatedArtistID = [];
+
+const getRelatedArtists = async (artistID) => {
+    const access_token = JSON.parse(localStorage.getItem('access_token'));
+
+    const response = await fetch(`https://api.spotify.com/v1/artists/${artistID}/related-artists`, {
+        headers: {
+            'Authorization': 'Bearer ' + access_token,
+        },
+    });
+
+    const data = await response();
+    for (let i = 0; i < data.length; i++) {
+        relatedArtistName.push(data.artists[i].name);
+        relatedArtistID.push(data.artists[i].id);
+    }
+}
+
+const showRelatedArtists = (artistArray, artistArrayID) => {
+    const artistList = document.getElementById('discovery-artist-list');
+    for (let i = 0; i < artistArray.length; i++) {
+        const newElement = document.createElement('li');
+        const button = document.createElement('button');
+        button.innerText = artistArray[i];
+
+        //button.addEventListener('click', getRelatedArtists(artistArrayID[i]));
+        button.addEventListener('click', () => {
+            console.log('test');
+        });
+        newElement.appendChild(button);
+        artistList.appendChild(newElement);
+    }
+    console.log('show related artists success');
+}
