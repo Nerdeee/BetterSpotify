@@ -37,7 +37,22 @@
 <script>
     var artistArr = JSON.parse(localStorage.getItem('topArtists'));
     var artistArrID = JSON.parse(localStorage.getItem('topArtistsID'));
-    showRelatedArtists(artistArr);
+    var list = document.getElementById('discovery-artist-list');
+    for (let i = 0; i < artistArr.length; i++) {
+        var listItem = document.createElement('li');
+        var listButtons = document.createElement('button');
+        listButtons.innerText = artistArr[i];
+
+        listButtons.addEventListener('click', () => {
+            getRelatedArtists(artistArrID[i]);
+            console.log(`button pressed! Artist ID = ${artistArrID[i]}`);
+        })
+
+        listItem.appendChild(listButtons);
+        list.appendChild(listItem);
+    }
+    //getRelatedArtists();
+    //showRelatedArtists(artistArr);
 </script>
 
 </html>

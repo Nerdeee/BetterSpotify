@@ -318,7 +318,11 @@ var relatedArtistName = [];
 var relatedArtistID = [];
 
 const getRelatedArtists = async (artistID) => {
+    //debugging purposes
+    console.log(`from getRelatedArtists: ${artistID}`);
+
     const access_token = JSON.parse(localStorage.getItem('access_token'));
+    console.log(access_token);
 
     const response = await fetch(`https://api.spotify.com/v1/artists/${artistID}/related-artists`, {
         headers: {
@@ -326,15 +330,30 @@ const getRelatedArtists = async (artistID) => {
         },
     });
 
-    const data = await response();
-    for (let i = 0; i < data.length; i++) {
+    const data = await response.json();
+    console.log('data: ', data);
+    for (let i = 0; i < data.artists.length; i++) {
         relatedArtistName.push(data.artists[i].name);
+        //console.log(data.artists[i].name);
         relatedArtistID.push(data.artists[i].id);
+        //console.log(data.artists[i].id);
+    }
+    testFunc();
+    console.log('end of test func');
+
+    showRelatedArtists(relatedArtistName, relatedArtistID);
+}
+
+const testFunc = () => {
+    for (let i = 0; i < relatedArtistName.length; i++) {
+        console.log(relatedArtistName[i]);
+        console.log(relatedArtistID[i]);
     }
 }
 
 const showRelatedArtists = (artistArray, artistArrayID) => {
     const artistList = document.getElementById('discovery-artist-list');
+    artistList.innerHTML = '';
     for (let i = 0; i < artistArray.length; i++) {
         const newElement = document.createElement('li');
         const button = document.createElement('button');
@@ -342,10 +361,16 @@ const showRelatedArtists = (artistArray, artistArrayID) => {
 
         //button.addEventListener('click', getRelatedArtists(artistArrayID[i]));
         button.addEventListener('click', () => {
-            console.log('test');
+            console.log('test1');
+            getRelatedArtists(artistArrayID[i]);
+            console.log('test2');
         });
         newElement.appendChild(button);
         artistList.appendChild(newElement);
     }
     console.log('show related artists success');
+    while (relatedArtistID.length > 0 && relatedArtistName.length > 0) {
+        relatedArtistID.pop();
+        relatedArtistName.pop();
+    }
 }
